@@ -12,14 +12,11 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-# The applications shown on the dashboard. `href` is a path on this same host
-# (nginx routes it to the right backend). Set `enabled: False` for a
-# placeholder tile that is visible but not yet wired up.
 APPS = [
     {
         "name": "Light Testing",
-        "description": "Q-ID light-rig tester — recipes, runs, calibration and "
-        "the master/slave rig controller.",
+        "description": "Q-ID light-rig tester - recipes, runs, calibration for "
+        "the Auto-TTL Rigs.",
         "href": "/light-testing/",
         "icon": "◉",
         "enabled": True,
