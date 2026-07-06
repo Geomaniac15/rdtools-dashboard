@@ -15,18 +15,17 @@ app = Flask(__name__)
 APPS = [
     {
         "name": "Light Testing",
-        "description": "Q-ID light-rig tester - recipes, runs, calibration for "
-        "the Auto-TTL Rigs.",
+        "description": "Q-ID light-rig tester - recipes, runs, calibration for the Auto-TTL Rigs.",
         "href": "/light-testing/",
         "icon": "◉",
         "enabled": True,
     },
     {
-        "name": "Coming soon",
-        "description": "Another R&D tool will live here.",
-        "href": "#",
-        "icon": "…",
-        "enabled": False,
+        "name": "Control for Environmental Testing Chamber",
+        "description": "Control and monitoring for the Q-ID environmental testing chamber.",
+        "href": "/etc-control/",
+        "icon": "ETC",
+        "enabled": True,
     },
 ]
 
