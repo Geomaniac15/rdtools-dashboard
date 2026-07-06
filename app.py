@@ -33,13 +33,3 @@ APPS = [
 @app.route("/")
 def index():
     return render_template("index.html", apps=APPS)
-
-
-# Environmental Testing Chamber control — the real app isn't deployed yet, so
-# serve a maintenance page. nginx routes everything except /light-testing/ here,
-# so no nginx change is needed. Swap this for a proxy to the real service later.
-@app.route("/etc-control/")
-def etc_control():
-    return render_template(
-        "maintenance.html", name="Environmental Testing Chamber Control"
-    ), 503
