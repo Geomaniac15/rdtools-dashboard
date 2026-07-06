@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ name }}</title>
+    <style>
+        /* Quantum Base — teal on deep navy (matches the dashboard). */
+        :root { --bg:#0c1418; --panel:#14212b; --line:#243440; --fg:#e6f4f2;
+                --muted:#8aa2a6; --accent:#17c3b2; --accent-deep:#0f9d8f;
+                --accent-soft:rgba(23,195,178,.18); }
+        * { box-sizing: border-box; }
+        body { margin:0; font:15px/1.5 system-ui, sans-serif; background:var(--bg);
+               color:var(--fg); min-height:100vh; display:flex; flex-direction:column; }
+
+        header { border-bottom:1px solid var(--line); }
+        .bar { max-width:960px; margin:0 auto; display:flex; align-items:center;
+               gap:.75rem; padding:1rem; }
+        .brand { font-weight:700; font-size:1.15rem; margin:0;
+                 display:flex; align-items:center; gap:.6rem; letter-spacing:.01em; }
+        .brand .mark { width:26px; height:26px; border-radius:7px; flex:none;
+                 background:linear-gradient(135deg, var(--accent), var(--accent-deep));
+                 display:grid; place-items:center; color:#04121f; font-size:13px;
+                 font-weight:800; }
+        .brand .qb { color:var(--accent); }
+        a.home { margin-left:auto; color:var(--muted); text-decoration:none;
+                 font-size:.9rem; }
+        a.home:hover { color:var(--accent); }
+
+        main { flex:1; display:grid; place-items:center; padding:2rem 1rem; }
+        .card { max-width:460px; text-align:center; background:var(--panel);
+                border:1px solid var(--line); border-radius:14px; padding:2.5rem 2rem; }
+        .icon { width:64px; height:64px; margin:0 auto 1.25rem; border-radius:16px;
+                display:grid; place-items:center; font-size:30px; color:var(--accent);
+                background:var(--accent-soft); }
+        h1 { font-size:1.3rem; margin:0 0 .5rem; }
+        .badge { display:inline-block; margin-bottom:1rem; padding:.25rem .7rem;
+                 border-radius:999px; font-size:.78rem; font-weight:600;
+                 color:var(--accent); background:var(--accent-soft);
+                 border:1px solid var(--accent); letter-spacing:.04em;
+                 text-transform:uppercase; }
+        p { color:var(--muted); margin:0 0 1.5rem; }
+        .back { display:inline-block; padding:.55rem 1.1rem; border-radius:9px;
+                background:var(--accent); color:#04121f; font-weight:600;
+                text-decoration:none; }
+        .back:hover { background:var(--accent-deep); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="bar">
+            <h1 class="brand"><a href="http://rdtools"><span class="mark">QB</span></a>
+                <span><span class="qb">R&D</span> Tools</span></h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="card">
+            <div class="icon">🛠</div>
+            <div class="badge">Under maintenance</div>
+            <h1>{{ name }}</h1>
+            <p>This tool isn't available yet. It's being set up and will
+               appear here once it's ready.</p>
+            <a class="back" href="/">Back to dashboard</a>
+        </div>
+    </main>
+</body>
+</html>
