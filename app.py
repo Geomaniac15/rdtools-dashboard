@@ -15,9 +15,9 @@ app = Flask(__name__)
 APPS = [
     {
         "name": "Q-ID Tag Testing",
-        "description": "Q-ID light-rig tester - recipes, runs, calibration for the Auto-TTL Rigs.",
+        "description": "Recipes, runs, calibration for the Auto Light Testing Rigs.",
         "href": "/light-testing/",
-        "icon": "◉",
+        "icon": "ID",
         "enabled": True,
     },
     {
@@ -27,6 +27,13 @@ APPS = [
         "icon": "ETC",
         "enabled": True,
     },
+    {
+        "name": "Secret Application",
+        "description": "Shhh...don't tell anyone.",
+        "href": "/secret-app/",
+        "icon": "?",
+        "enabled": False,
+    }
 ]
 
 
