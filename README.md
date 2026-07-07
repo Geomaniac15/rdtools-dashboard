@@ -24,7 +24,7 @@ nginx strips the `/light-testing` prefix (trailing-slash `proxy_pass`); the
 tag-tester app emits prefixed client URLs via its `URL_PREFIX=/light-testing`
 env var so `fetch`/`href` calls resolve under the sub-path.
 
-`rdtools` is the master Pi's Tailscale MagicDNS name (formerly `qb-light-testing`,
+`rdtools` is the controller Pi's Tailscale MagicDNS name (formerly `qb-light-testing`,
 IP `100.86.6.122`); `q-id` is the tailnet DNS suffix. Plain HTTP over the tailnet,
 no public exposure.
 

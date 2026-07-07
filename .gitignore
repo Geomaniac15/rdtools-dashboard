@@ -1,3 +1,10 @@
 venv/
 __pycache__/
 *.pyc
+
+# Chamber run data (logs/events) — big machine-generated CSVs; they stay on
+# disk (and in the USB backups), just not in git. Programs & code stay tracked.
+chamber_stuff/*_events.csv
+chamber_stuff/*_log.csv
+chamber_stuff/run*.csv
+chamber_stuff/Bizot_*.csv
