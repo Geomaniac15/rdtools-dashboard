@@ -7,7 +7,7 @@ host. Currently:
 | App | Path | Backend |
 |-----|------|---------|
 | Light Testing | `/light-testing/` | `tag-tester` gunicorn on `127.0.0.1:8000` |
-| _(placeholder)_ | — | future |
+| Environmental Testing Chamber | `/etc-control/` | `etc-control` gunicorn on `127.0.0.1:8002` |
 
 This service is only the dashboard shell (the tile grid at `/`). Each app is a
 separate service; nginx routes each sub-path to the right backend.
@@ -17,6 +17,7 @@ separate service; nginx routes each sub-path to the right backend.
 ```
 rdtools.q-id/               → nginx :80 → this dashboard (gunicorn 127.0.0.1:8001)
 rdtools.q-id/light-testing/ → nginx :80 → tag-tester    (gunicorn 127.0.0.1:8000)
+rdtools.q-id/etc-control/   → nginx :80 → etc-control   (gunicorn 127.0.0.1:8002)
 ```
 
 nginx strips the `/light-testing` prefix (trailing-slash `proxy_pass`); the
