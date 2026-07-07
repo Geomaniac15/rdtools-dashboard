@@ -1,0 +1,1 @@
+python3 basic_control.py Bizot.csv --log-csv run002.csv --overwrite

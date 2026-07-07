@@ -15,9 +15,9 @@ app = Flask(__name__)
 APPS = [
     {
         "name": "Q-ID Tag Testing",
-        "description": "Q-ID light-rig tester - recipes, runs, calibration for the Auto-TTL Rigs.",
+        "description": "Recipes, runs, calibration for the Auto Light Testing Rigs.",
         "href": "/light-testing/",
-        "icon": "◉",
+        "icon": "ID",
         "enabled": True,
     },
     {
@@ -27,19 +27,16 @@ APPS = [
         "icon": "ETC",
         "enabled": True,
     },
+    {
+        "name": "Secret Application",
+        "description": "Shhh...don't tell anyone.",
+        "href": "/secret-app/",
+        "icon": "?",
+        "enabled": False,
+    }
 ]
 
 
 @app.route("/")
 def index():
     return render_template("index.html", apps=APPS)
-
-
-# Environmental Testing Chamber control — the real app isn't deployed yet, so
-# serve a maintenance page. nginx routes everything except /light-testing/ here,
-# so no nginx change is needed. Swap this for a proxy to the real service later.
-@app.route("/etc-control/")
-def etc_control():
-    return render_template(
-        "maintenance.html", name="Environmental Testing Chamber Control"
-    ), 503
