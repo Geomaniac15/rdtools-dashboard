@@ -49,6 +49,21 @@
 
         footer { max-width:960px; margin:0 auto; padding:0 1rem 2rem;
                  color:var(--muted); font-size:.82rem; }
+
+        /* Emergency stop — the only button that reaches BOTH light rigs. Each
+           rig app's own stop covers only its own rig. */
+        .spacer { flex:1; }
+        .estop { flex:none; border:1px solid #7d2b26; border-radius:9px;
+                 background:#2a1113; color:#ffb4ae; font-weight:700;
+                 font-size:.85rem; letter-spacing:.02em; padding:.55rem .9rem;
+                 cursor:pointer; transition:background .15s, border-color .15s; }
+        .estop:hover:not(:disabled) { background:#3a1519; border-color:#b3413a; }
+        .estop:disabled { opacity:.6; cursor:default; }
+        .estopmsg { max-width:960px; margin:0 auto; padding:0 1rem;
+                    font-size:.85rem; }
+        .estopmsg:not(:empty) { padding-bottom:.85rem; }
+        .estopmsg .ok { color:var(--accent); }
+        .estopmsg .bad { color:#ffb4ae; }
     </style>
 </head>
 <body>
@@ -56,7 +71,12 @@
         <div class="bar">
             <h1 class="brand"><span class="mark">QB</span>
                 <span><span class="qb">RE</span> Tools</span></h1>
+            <span class="spacer"></span>
+            <button id="estop" class="estop" onclick="emergencyStopAll()"
+                    title="Stop every run and turn BOTH light rigs off (ATR-L-BR and ATR-L-LL). Each rig app's own stop only covers its own rig.">
+                ⏻ STOP ALL LIGHTS</button>
         </div>
+        <div id="estopMsg" class="estopmsg"></div>
     </header>
 
     <main>
@@ -83,5 +103,46 @@
     </main>
 
     <footer>Made by G :)</footer>
+
+<script>
+    // Panic button. The two light rigs are separate apps now, and each app's own
+    // E-stop reaches only its own rig — this is the one that darkens both.
+    // Fires immediately (no confirm): that's the point of an e-stop.
+    const esc = (s) => String(s).replace(/[&<>"']/g,
+        c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+    let estopBusy = false;
+    async function emergencyStopAll() {
+        if (estopBusy) return;
+        estopBusy = true;
+        const btn = document.getElementById('estop');
+        const msg = document.getElementById('estopMsg');
+        const label = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '⏻ Stopping…';
+        msg.innerHTML = '<span>Stopping all runs and turning both light rigs off…</span>';
+        try {
+            const data = await (await fetch('/emergency-stop-all',
+                { method: 'POST' })).json();
+            const n = (data.stopped || []).length;
+            let m = data.ok
+                ? '<span class="ok">✔ Both rigs off' +
+                  (n ? ' — stopped ' + n + ' active run' + (n === 1 ? '' : 's') : '') +
+                  '.</span>'
+                : '<span class="bad">⚠ Not every rig confirmed off.</span>';
+            if (data.errors && data.errors.length)
+                m += ' <span class="bad">' + esc(data.errors.join('; ')) + '</span>';
+            msg.innerHTML = m;
+        } catch (err) {
+            msg.innerHTML = '<span class="bad">Emergency stop request failed: ' +
+                esc(err) + ' — check both rigs manually.</span>';
+        } finally {
+            btn.disabled = false;
+            btn.textContent = label;
+            estopBusy = false;
+            setTimeout(() => { msg.innerHTML = ''; }, 12000);
+        }
+    }
+</script>
 </body>
 </html>
