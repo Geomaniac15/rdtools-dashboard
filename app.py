@@ -36,7 +36,12 @@ APPS = [
         "href": "/atr-l-ll/",
         "icon": "LL",
         "enabled": True,
-    }
+    },
+    {"name": "Materials Lab",
+    "description": "Illuminant metamerism and the SPD library — drives both light rigs.",
+    "href": "/materials/", 
+    "icon": "ML", 
+    "enabled": True},
 ]
 
 # The two light-rig controllers, by loopback port (see tag-tester's
@@ -44,9 +49,10 @@ APPS = [
 # rig, so this is the one button that darkens both — the guarantee the single
 # combined app used to give. Addressed directly rather than through nginx so it
 # doesn't depend on the sub-path routing.
-LIGHT_RIG_APPS = [
+STOPPABLE_APPS = [
     {"name": "ATR-L-BR", "url": os.environ.get("ATR_L_BR_URL", "http://127.0.0.1:8003")},
     {"name": "ATR-L-LL", "url": os.environ.get("ATR_L_LL_URL", "http://127.0.0.1:8004")},
+    {"name": "Materials Lab", "url": os.environ.get("MATERIALS_URL", "http://127.0.0.1:8005")},
 ]
 ESTOP_TIMEOUT = 10  # generous: a rig app may itself be waiting on a slow agent
 
@@ -64,7 +70,7 @@ def emergency_stop_all():
     darkened, so failures are collected and reported rather than raised.
     """
     stopped, errors = [], []
-    for rig_app in LIGHT_RIG_APPS:
+    for rig_app in STOPPABLE_APPS:
         try:
             resp = requests.post(f"{rig_app['url']}/emergency-stop",
                                  timeout=ESTOP_TIMEOUT)
