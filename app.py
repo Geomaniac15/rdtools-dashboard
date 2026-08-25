@@ -31,10 +31,11 @@ APPS = [
         "enabled": True,
     },
     {
-        "name": "ATR-L-LL",
-        "description": "Light testing for the ATR-L-LL rig (Philips Hue bulb).",
-        "href": "/atr-l-ll/",
-        "icon": "LL",
+        "name": "ATR-L-SPD",
+        "description": "Light testing for the ATR-L-SPD rig (Philips Hue bulb plus "
+                       "switched external lamps).",
+        "href": "/atr-l-spd/",
+        "icon": "SPD",
         "enabled": True,
     },
     {"name": "Materials Lab",
@@ -51,7 +52,10 @@ APPS = [
 # doesn't depend on the sub-path routing.
 STOPPABLE_APPS = [
     {"name": "ATR-L-BR", "url": os.environ.get("ATR_L_BR_URL", "http://127.0.0.1:8003")},
-    {"name": "ATR-L-LL", "url": os.environ.get("ATR_L_LL_URL", "http://127.0.0.1:8004")},
+    # ATR_L_LL_URL is the pre-rename name of this variable, honoured as a fallback so a
+    # deployment that set it does not silently drop back to the default.
+    {"name": "ATR-L-SPD", "url": os.environ.get("ATR_L_SPD_URL")
+                                 or os.environ.get("ATR_L_LL_URL", "http://127.0.0.1:8004")},
     {"name": "Materials Lab", "url": os.environ.get("MATERIALS_URL", "http://127.0.0.1:8005")},
 ]
 ESTOP_TIMEOUT = 10  # generous: a rig app may itself be waiting on a slow agent

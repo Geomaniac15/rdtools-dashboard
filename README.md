@@ -7,7 +7,7 @@ host. Currently:
 | App | Path | Backend |
 |-----|------|---------|
 | ATR-L-BR (light testing, DMX/Godox rig) | `/atr-l-br/` | `tag-tester` gunicorn on `127.0.0.1:8003` (`RIG=dmx`) |
-| ATR-L-LL (light testing, Philips Hue rig) | `/atr-l-ll/` | `tag-tester` gunicorn on `127.0.0.1:8004` (`RIG=hue`) |
+| ATR-L-SPD (light testing, Philips Hue rig) | `/atr-l-spd/` | `tag-tester` gunicorn on `127.0.0.1:8004` (`RIG=hue`) |
 | Environmental Testing Chamber | `/etc-control/` | `etc-control` gunicorn on `127.0.0.1:8002` |
 
 This service is only the dashboard shell (the tile grid at `/`, plus the
@@ -25,7 +25,8 @@ redirects here.
 ```
 rdtools.q-id/             → nginx :80 → this dashboard (gunicorn 127.0.0.1:8001)
 rdtools.q-id/atr-l-br/    → nginx :80 → tag-tester     (gunicorn 127.0.0.1:8003, RIG=dmx)
-rdtools.q-id/atr-l-ll/    → nginx :80 → tag-tester     (gunicorn 127.0.0.1:8004, RIG=hue)
+rdtools.q-id/atr-l-spd/   → nginx :80 → tag-tester     (gunicorn 127.0.0.1:8004, RIG=hue)
+rdtools.q-id/atr-l-ll/    → 308 → /atr-l-spd/            (the rig's former name)
 rdtools.q-id/etc-control/ → nginx :80 → etc-control    (gunicorn 127.0.0.1:8002)
 ```
 
@@ -46,7 +47,8 @@ app's `/emergency-stop` over loopback and reports what it managed to stop.
 
 It is best effort by design — one app being down never stops the other from being
 darkened; failures are reported, not raised. Override the backends with the
-`ATR_L_BR_URL` / `ATR_L_LL_URL` env vars if the ports ever move.
+`ATR_L_BR_URL` / `ATR_L_SPD_URL` env vars if the ports ever move. (`ATR_L_LL_URL`,
+the pre-rename name, is still honoured as a fallback.)
 
 ## Deploy
 
