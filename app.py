@@ -43,6 +43,14 @@ APPS = [
     "href": "/materials/", 
     "icon": "ML", 
     "enabled": True},
+    {
+        "name": "Rig Scans",
+        "description": "Pull every OpenSearch scan taken during an ATR-L-BR or ATR-L-SPD "
+                       "run, labelled with the rig step it was taken under.",
+        "href": "/rig-scans/",
+        "icon": "RS",
+        "enabled": True,
+    },
 ]
 
 # The two light-rig controllers, by loopback port (see tag-tester's

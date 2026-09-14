@@ -9,6 +9,7 @@ host. Currently:
 | ATR-L-BR (light testing, DMX/Godox rig) | `/atr-l-br/` | `tag-tester` gunicorn on `127.0.0.1:8003` (`RIG=dmx`) |
 | ATR-L-SPD (light testing, Philips Hue rig) | `/atr-l-spd/` | `tag-tester` gunicorn on `127.0.0.1:8004` (`RIG=hue`) |
 | Environmental Testing Chamber | `/etc-control/` | `etc-control` gunicorn on `127.0.0.1:8002` |
+| Rig Scans (OpenSearch scans for a rig run) | `/rig-scans/` | `rig-scans` gunicorn on `127.0.0.1:8006` |
 
 This service is only the dashboard shell (the tile grid at `/`, plus the
 all-rigs emergency stop). Each app is a separate service; nginx routes each
